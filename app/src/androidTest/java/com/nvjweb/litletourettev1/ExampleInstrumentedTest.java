@@ -1,4 +1,4 @@
-package com.nvjweb.littletourette;
+package com.nvjweb.litletourettev1;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.nvjweb.littletourette", appContext.getPackageName());
+        assertEquals("com.nvjweb.litletourettev1", appContext.getPackageName());
     }
 }

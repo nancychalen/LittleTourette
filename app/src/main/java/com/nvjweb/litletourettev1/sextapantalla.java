@@ -1,4 +1,4 @@
-package com.nvjweb.littletourette;
+package com.nvjweb.litletourettev1;
 
 
 import android.content.Intent;
@@ -15,7 +15,7 @@ public class sextapantalla extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.sextapantalla);
 
         imgsandiaa=findViewById(R.id.imgsandiaa);
 

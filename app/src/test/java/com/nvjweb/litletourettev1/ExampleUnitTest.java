@@ -1,4 +1,4 @@
-package com.nvjweb.littletourette;
+package com.nvjweb.litletourettev1;
 
 import org.junit.Test;
 

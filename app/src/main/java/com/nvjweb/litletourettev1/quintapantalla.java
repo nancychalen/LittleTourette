@@ -1,4 +1,4 @@
-package com.nvjweb.littletourette;
+package com.nvjweb.litletourettev1;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ public class quintapantalla extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.quintapantalla);
 
         imgpina=findViewById(R.id.imgpina);
 
