@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/fondonivel2"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".sextapantalla">
 
 
     <LinearLayout
@@ -13,7 +15,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/regresar"
             android:layout_width="95dp"
             android:layout_height="149dp"
             app:srcCompat="@drawable/atras" />
@@ -25,17 +27,10 @@
             android:layout_gravity="center|center_horizontal"
             android:fontFamily="@font/boogaloo"
             android:gravity="top"
-            android:text="Juan estas Listo?"
+            android:text="Estas Listo?"
             android:textAlignment="center"
             android:textColor="#6B4A02"
             android:textSize="35sp" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            app:srcCompat="@drawable/avatar1" />
-
 
     </LinearLayout>
 
@@ -48,73 +43,44 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imgsandia"
+                android:id="@+id/fruta1"
                 android:layout_width="60dp"
                 android:layout_height="70dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/sandia" />
+                android:scaleType="centerCrop" />
 
             <ImageView
-                android:id="@+id/imuvas"
+                android:id="@+id/fruta2"
                 android:layout_width="60dp"
                 android:layout_height="70dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/guineo" />
+                android:scaleType="centerCrop"/>
 
             <ImageView
-                android:id="@+id/imgsandiaa"
+                android:id="@+id/fruta3"
                 android:layout_width="45dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="5dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/sandia" />
+                android:scaleType="centerCrop"/>
             <ImageView
-                android:id="@+id/imgmanzanaa"
+                android:id="@+id/fruta4"
                 android:layout_width="60dp"
                 android:layout_height="70dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/manzana" />
+                android:scaleType="centerCrop"/>
 
             <ImageView
-                android:id="@+id/imgguineo"
+                android:id="@+id/fruta5"
                 android:layout_width="54dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/guineo" />
+                android:scaleType="centerCrop"/>
 
             <ImageView
-                android:id="@+id/immanzana"
+                android:id="@+id/fruta6"
                 android:layout_width="51dp"
                 android:layout_height="70dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/manzana" />
+                android:scaleType="centerCrop"/>
 
         </TableRow>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <ImageView
-                android:id="@+id/imgsandiaS"
-                android:layout_width="165dp"
-                android:layout_height="120dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="90dp"
-                app:srcCompat="@drawable/sandia" />
-
-            <ImageView
-                android:id="@+id/imgmanzanS"
-                android:layout_width="131dp"
-                android:layout_height="206dp"
-                app:srcCompat="@drawable/manzana" />
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/txtpregunta"
@@ -123,13 +89,30 @@
             android:layout_gravity="center|center_horizontal"
             android:fontFamily="@font/boogaloo"
             android:gravity="top"
-            android:text="¿Cuales frutas se parecen?"
+            android:text="¿Que frutas se parecen?"
             android:textAlignment="center"
             android:textColor="#6B4A02"
-            android:textSize="55sp" />
+            android:textSize="40sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal">
 
 
+            <ImageView
+                android:id="@+id/frutaadivinar1"
+                android:layout_width="165dp"
+                android:layout_height="120dp"/>
+
+            <ImageView
+                android:id="@+id/frutaadivinar2"
+                android:layout_width="165dp"
+                android:layout_height="120dp"/>
+
+        </LinearLayout>
     </TableLayout>
-
-
 </LinearLayout>

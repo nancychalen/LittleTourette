@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,32 +17,49 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class segundapantalla extends AppCompatActivity {
-    private static final String PREFS_KEY ="PREFS";
-    FirebaseFirestore db;
+    private static final String PREFS_KEY = "PREFS";
+
     ImageView registrar;
-    String avatar;
+    String avatar, idusuario=null;
     EditText ingresanombre,ingresaclave,txtedad;
+
+    public final static String path = "https://littletourettebase.herokuapp.com/guardarusuario";
+    java.net.URL url;
+    String responseText;
+    StringBuffer response;
+    ServicioWebRegistrar registrarusuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.segundapantalla);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        db = FirebaseFirestore.getInstance();
 
-        avatar= getIntent().getStringExtra("avatar");
+        avatar = getIntent().getStringExtra("avatar");
         //Toast.makeText(getApplicationContext(), avatar, Toast.LENGTH_LONG).show();
 
         registrar=findViewById(R.id.registrar);
@@ -48,16 +67,16 @@ public class segundapantalla extends AppCompatActivity {
         ingresaclave=findViewById(R.id.ingresaclave);
         txtedad=findViewById(R.id.txtedad);
 
-        registrar.setOnClickListener(new View.OnClickListener(){
-
+        registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isConnectedToInternet())
                 {
-                    empezar();
-                }else{
+                    registrarusuario = (ServicioWebRegistrar) new ServicioWebRegistrar().execute();
+                }
+                else
+                {
                     Toast.makeText(getApplicationContext(),"no hay internet", Toast.LENGTH_LONG).show();
-
                 }
             }
         });
@@ -65,7 +84,7 @@ public class segundapantalla extends AppCompatActivity {
         txtedad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch(view.getId()){
+                switch (view.getId()) {
                     case R.id.txtedad:
                         showDatePickerDialog();
                         break;
@@ -73,100 +92,209 @@ public class segundapantalla extends AppCompatActivity {
             }
         });
 
-
-
-
-
     }
 
     public boolean isConnectedToInternet(){
         ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null) {
+        if (connectivity != null)
+        {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if(info != null)
+            if (info != null)
                 for (int i = 0; i < info.length; i++)
-                     if (info[i].getState() == NetworkInfo.State.CONNECTED){
-                         return true;
-
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
                     }
-
 
         }
         return false;
-
     }
-
-    public void guardarusuario(Context context, String keyPref, String valor){
+    public static void guardarusuario(Context context, String keyPref, String valor) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_KEY, MODE_PRIVATE);
         SharedPreferences.Editor editor;
         editor = settings.edit();
         editor.putString(keyPref, valor);
         editor.commit();
-
-
-
     }
 
     private void showDatePickerDialog() {
-        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
 
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because january is zero
                 month=month+1;
                 String formattedMonth= String.valueOf(month);
                 String formattedDayOfMonth= String.valueOf(day);
                 if(month < 10){
+
                     formattedMonth = "0" + month;
-
                 }
-                if(day<10){
+                if(day < 10){
+
                     formattedDayOfMonth = "0" + day;
-
                 }
-
                 final String selectedDate = formattedDayOfMonth + "/" + formattedMonth + "/" + year;
                 EditText etPlannedDate = (EditText) findViewById(R.id.txtedad);
                 etPlannedDate.setText(selectedDate);
-
-
-
-
             }
         });
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    private void empezar(){
-        Map<String, Object> user = new HashMap<>();
-        user.put("nombre", ""+ingresanombre.getText());
-        user.put("clave", ""+ingresaclave.getText());
-        user.put("nacimiento", ""+txtedad.getText());
-        user.put("avatar", avatar);
-
-        db.collection("usuarios")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Intent intent = new Intent(segundapantalla.this, cuartapantalla.class);
-                        guardarusuario(segundapantalla.this,"nombre",""+ingresanombre.getText());
-                        guardarusuario(segundapantalla.this,"avatar",""+avatar);
-                        segundapantalla.this.startActivity(intent);
+    private class ServicioWebRegistrar extends AsyncTask<Integer, Integer, String> {
 
 
+        @Override
+        protected void onPreExecute() {
+        }
+        @Override
+        protected String doInBackground(Integer... params) {
+            return getWebServiceResponseData();
+        }
+
+        protected String getWebServiceResponseData() {
+
+            HttpURLConnection urlConnection = null;
+            Map<String, String> stringMap = new HashMap<>();
+
+            stringMap.put("nombre", ""+ingresanombre.getText());
+            stringMap.put("clave", ""+ingresaclave.getText());
+            stringMap.put("nacimiento", ""+txtedad.getText());
+            stringMap.put("avatar", ""+avatar);
+
+            String requestBody = Utils.buildPostParameters(stringMap);
+            try {
+                urlConnection = (HttpURLConnection) Utils.makeRequest("POST", path, null, "application/x-www-form-urlencoded", requestBody);
+                InputStream inputStream;
+                if (urlConnection.getResponseCode() < HttpURLConnection.HTTP_BAD_REQUEST) {
+                    inputStream = urlConnection.getInputStream();
+                } else {
+                    inputStream = urlConnection.getErrorStream();
+                }
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp, response = "";
+                while ((temp = bufferedReader.readLine()) != null) {
+                    response += temp;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.toString();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+
+            try {
+                URL url=new URL("https://littletourettebase.herokuapp.com/ultimoidusuario");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(15000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("GET");
+                int responseCode = conn.getResponseCode();
+                Log.d("TAG", "Response code: " + responseCode);
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    // Reading response from input Stream
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()));
+                    String output;
+                    response = new StringBuffer();
+
+                    while ((output = in.readLine()) != null) {
+                        response.append(output);
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+                    in.close();
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            try {
+                responseText = response.toString();
+                JSONArray jsonarray = new JSONArray(responseText);
 
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("tag", "Error adding document", e);
-                        Toast.makeText(getApplicationContext(), "no se pudo registrar", Toast.LENGTH_LONG).show();
+                for (int i=0;i<jsonarray.length();i++){
+                    JSONObject jsonobject = jsonarray.getJSONObject(0);
+                    idusuario = jsonobject.getString("id");
+                }
 
+            } catch (Exception e) {
+            }
+            return idusuario;
+        }
 
-                    }
-                });
+        @Override
+        protected void onPostExecute(String nombre) {
+            super.onPostExecute(nombre);
+
+            if (idusuario!=null){
+                Intent itemintent = new Intent(segundapantalla.this, cuartapantalla.class);
+                segundapantalla.this.startActivity(itemintent);
+                guardarusuario(segundapantalla.this,"idusuario", ""+idusuario);
+                guardarusuario(segundapantalla.this,"nombre", String.valueOf(ingresanombre.getText()));
+                guardarusuario(segundapantalla.this,"avatar", avatar);
+
+            }else{
+                Toast.makeText(getApplicationContext(),"no se pudo registrar", Toast.LENGTH_LONG).show();
+
+            }
+
+        }
+
     }
 
+    public static class Utils{
+        public static String buildPostParameters(Object content) {
+            String output = null;
+            if ((content instanceof String) ||
+                    (content instanceof JSONObject) ||
+                    (content instanceof JSONArray)) {
+                output = content.toString();
+            } else if (content instanceof Map) {
+                Uri.Builder builder = new Uri.Builder();
+                HashMap hashMap = (HashMap) content;
+                if (hashMap != null) {
+                    Iterator entries = hashMap.entrySet().iterator();
+                    while (entries.hasNext()) {
+                        Map.Entry entry = (Map.Entry) entries.next();
+                        builder.appendQueryParameter(entry.getKey().toString(), entry.getValue().toString());
+                        entries.remove(); // avoids a ConcurrentModificationException
+                    }
+                    output = builder.build().getEncodedQuery();
+                }
+            }
+
+            return output;
+        }
+
+        public static URLConnection makeRequest(String method, String apiAddress, String accessToken, String mimeType, String requestBody) throws IOException {
+            URL url = null;
+            HttpURLConnection urlConnection = null;
+            try {
+                url = new URL(apiAddress);
+
+                urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(!method.equals("GET"));
+                urlConnection.setRequestMethod(method);
+
+                urlConnection.setRequestProperty("Authorization", "Bearer " + accessToken);
+
+                urlConnection.setRequestProperty("Content-Type", mimeType);
+                OutputStream outputStream = new BufferedOutputStream(urlConnection.getOutputStream());
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
+                writer.write(requestBody);
+                writer.flush();
+                writer.close();
+                outputStream.close();
+
+                urlConnection.connect();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            return urlConnection;
+        }
+    }
 }
