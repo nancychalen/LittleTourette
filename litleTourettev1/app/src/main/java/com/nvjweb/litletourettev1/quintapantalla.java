@@ -23,7 +23,6 @@ public class quintapantalla extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quintapantalla);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         regresar=findViewById(R.id.regresar);
 
         regresar.setOnClickListener(new View.OnClickListener() {

@@ -24,7 +24,6 @@ public class septimapantalla extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.septimapantalla);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         regresar=findViewById(R.id.regresar);
         regresar.setOnClickListener(new View.OnClickListener() {

@@ -9,34 +9,41 @@
     tools:context=".sextapantalla">
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/regresar"
-            android:layout_width="95dp"
-            android:layout_height="149dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="-5dp"
+            android:layout_weight="0.5"
             app:srcCompat="@drawable/atras" />
 
         <TextView
             android:id="@+id/txtavatar"
-            android:layout_width="185dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="87dp"
+            android:layout_alignParentRight="true"
             android:layout_gravity="center|center_horizontal"
+            android:layout_marginRight="44dp"
             android:fontFamily="@font/boogaloo"
             android:gravity="top"
-            android:text="Estas Listo?"
-            android:textAlignment="center"
+            android:text="Tú puedes!"
             android:textColor="#6B4A02"
-            android:textSize="35sp" />
+            android:textSize="40dp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:stretchColumns="*"
+        android:shrinkColumns="*">
 
         <TableRow
             android:layout_width="match_parent"
@@ -56,10 +63,9 @@
 
             <ImageView
                 android:id="@+id/fruta3"
-                android:layout_width="45dp"
+                android:layout_width="60dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginLeft="5dp"
                 android:scaleType="centerCrop"/>
             <ImageView
                 android:id="@+id/fruta4"
@@ -69,18 +75,19 @@
 
             <ImageView
                 android:id="@+id/fruta5"
-                android:layout_width="54dp"
+                android:layout_width="58dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
                 android:scaleType="centerCrop"/>
 
             <ImageView
                 android:id="@+id/fruta6"
-                android:layout_width="51dp"
+                android:layout_width="57dp"
                 android:layout_height="70dp"
                 android:scaleType="centerCrop"/>
 
         </TableRow>
+
 
         <TextView
             android:id="@+id/txtpregunta"
@@ -89,10 +96,12 @@
             android:layout_gravity="center|center_horizontal"
             android:fontFamily="@font/boogaloo"
             android:gravity="top"
-            android:text="¿Que frutas se parecen?"
+            android:padding="20dp"
+            android:text="¿Qué frutas se parecen?"
             android:textAlignment="center"
             android:textColor="#6B4A02"
-            android:textSize="40sp" />
+            android:textSize="40dp" />
+
 
         <LinearLayout
             android:layout_width="wrap_content"

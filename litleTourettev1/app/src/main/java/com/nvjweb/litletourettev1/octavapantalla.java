@@ -47,7 +47,6 @@ public class octavapantalla extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.octavapantalla);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         errores= Integer.valueOf(getIntent().getStringExtra("errores"));
         avatar= leerusuario(this, "avatar");
         imgavatar= findViewById(R.id.imgavatar);

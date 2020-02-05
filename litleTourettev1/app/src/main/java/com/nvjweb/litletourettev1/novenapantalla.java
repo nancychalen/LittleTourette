@@ -2,17 +2,16 @@ package com.nvjweb.litletourettev1;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +41,6 @@ public class novenapantalla extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.novenapantalla);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         avatar=leerusuario(this,"avatar");
         nombre=leerusuario(this,"nombre");
         idusuario=leerusuario(this,"idusuario");
@@ -178,13 +176,13 @@ public class novenapantalla extends AppCompatActivity {
                 txterrores.setText(""+errores);
                 txtaciertos.setText(""+aciertos);
                 if(Integer.valueOf(aciertos) < 10){
-                    txtnivel.setText("1");
+                    txtnivel.setText("1-En este nivel se recomiendsa:El uso de Carteles , fotos ,dibujosy señales acusticas");
                 }else{
                     if(Integer.valueOf(aciertos) < 20){
-                        txtnivel.setText("2");
+                        txtnivel.setText("2-En este nivel se recomienda : Un guia de conducta, pensar en voz alta , repetirse la orden,autoinstrucciones y trabajar con la imaginaciòn");
                     }else{
                         if(Integer.valueOf(aciertos) < 35){
-                            txtnivel.setText("3");
+                            txtnivel.setText("3-En este nivel se recomienda habitos , rutinas ,Organizaciòn y hoarios");
                         }else{
                             if(Integer.valueOf(aciertos) < 50){
                                 txtnivel.setText("4");

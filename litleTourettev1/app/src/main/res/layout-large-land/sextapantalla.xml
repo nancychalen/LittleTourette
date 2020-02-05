@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/fondonivel2"
+    android:orientation="vertical"
+    tools:context=".sextapantalla">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/regresar"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="-5dp"
+            android:layout_weight="0.5"
+            app:srcCompat="@drawable/atras" />
+
+        <TextView
+            android:id="@+id/txtavatar"
+            android:layout_width="wrap_content"
+            android:layout_height="87dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginRight="44dp"
+            android:fontFamily="@font/boogaloo"
+            android:gravity="top"
+            android:text="Estas Listo?"
+            android:textColor="#6B4A02"
+            android:textSize="40dp" />
+
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:stretchColumns="*"
+        android:shrinkColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/fruta1"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
+                />
+
+            <ImageView
+                android:id="@+id/fruta2"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
+                />
+
+            <ImageView
+                android:id="@+id/fruta3"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                />
+            <ImageView
+                android:id="@+id/fruta4"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
+                />
+
+            <ImageView
+                android:id="@+id/fruta5"
+                android:layout_width="58dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                />
+
+            <ImageView
+                android:id="@+id/fruta6"
+                android:layout_width="57dp"
+                android:layout_height="70dp"
+                />
+
+        </TableRow>
+
+
+        <TextView
+            android:id="@+id/txtpregunta"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:fontFamily="@font/boogaloo"
+            android:gravity="top"
+            android:padding="20dp"
+            android:text="¿Que frutas se parecen?"
+            android:textAlignment="center"
+            android:textColor="#6B4A02"
+            android:textSize="40dp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal">
+
+
+            <ImageView
+                android:id="@+id/frutaadivinar1"
+                android:layout_width="165dp"
+                android:layout_height="120dp"/>
+
+            <ImageView
+                android:id="@+id/frutaadivinar2"
+                android:layout_width="165dp"
+                android:layout_height="120dp"/>
+
+        </LinearLayout>
+    </TableLayout>
+</LinearLayout>

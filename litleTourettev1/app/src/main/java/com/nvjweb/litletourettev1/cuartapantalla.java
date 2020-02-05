@@ -24,7 +24,6 @@ public class cuartapantalla extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cuartapantalla);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //contente
         TareaInternet tareaInternet=new TareaInternet(getApplicationContext());
         tareaInternet.execute();

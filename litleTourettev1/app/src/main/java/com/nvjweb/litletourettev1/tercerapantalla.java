@@ -18,7 +18,6 @@ public class tercerapantalla extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tercerapantalla);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         avatar1=findViewById(R.id.avatar1);
         avatar2=findViewById(R.id.avatar2);

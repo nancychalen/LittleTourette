@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:background="@drawable/fondoinicio"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -11,10 +12,9 @@
 
     <ImageView
         android:id="@+id/start"
-        android:layout_width="480dp"
-        android:layout_height="702dp"
+        android:layout_width="377dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:scaleType="center"
         android:textAlignment="center"
         app:srcCompat="@drawable/logot" />
 

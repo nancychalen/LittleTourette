@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondoinicio"
+    android:orientation="vertical">
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/fondoinicio"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/img_btn_hablar"
+            android:layout_width="143dp"
+            android:layout_height="189dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/voz"
+            android:onClick="onClickImgBtnHablar"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="132dp"
+            android:layout_marginTop="50dp"
+            android:layout_height="111dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/logot" />
+
+        <TextView
+            android:id="@+id/txtbienvenido"
+            android:layout_width="149dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/boogaloo"
+            android:gravity="top"
+            android:text="Bienvenido!"
+            android:textAlignment="center"
+            android:textColor="#FF5722"
+            android:textSize="25dp" />
+        <TextView
+            android:id="@+id/txtnombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/txtbienvenido"
+            android:fontFamily="@font/boogaloo"
+            android:text="Escribe tu Nombre"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp" />
+        <EditText
+            android:id="@+id/ingresanombre"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/txtnombre"
+            android:background="@drawable/fondoelemento1"
+            android:fontFamily="@font/boogaloo"
+            android:gravity="center"
+            android:inputType="text"
+            android:phoneNumber="false"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/txtclave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/ingresanombre"
+            android:fontFamily="@font/boogaloo"
+            android:text="Escribe tu Clave"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="25dp" />
+        <EditText
+            android:id="@+id/ingresaclave"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/txtclave"
+            android:background="@drawable/fondoelemento1"
+            android:fontFamily="@font/boogaloo"
+            android:gravity="center"
+            android:inputType="text"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btnlogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/ingresaclave"
+            android:paddingHorizontal="45sp"
+            android:text="Ingresar"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#34b6a6"
+            android:textSize="15dp"/>
+
+        <Button
+            android:id="@+id/btnregistrar"
+            android:layout_width="wrap_content"
+            android:layout_height="52dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/btnlogin"
+            android:layout_gravity="center_horizontal"
+            android:paddingHorizontal="45sp"
+            android:backgroundTint="#34b6a6"
+            android:text="Registrarse"
+            android:textColor="@android:color/white"
+            android:textSize="15dp"/>
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+
+
+

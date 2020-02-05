@@ -50,7 +50,7 @@ public class segundapantalla extends AppCompatActivity {
     private static final String PREFS_KEY = "PREFS";
 
     ImageView registrar;
-    String avatar, idusuario=null;
+    String avatar="avatar1", idusuario=null;
     EditText ingresanombre,ingresaclave,txtedad;
 
     public final static String path = "https://littletourettebase.herokuapp.com/guardarusuario";
@@ -67,7 +67,6 @@ public class segundapantalla extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.segundapantalla);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //content usuario
         dbUser= new UsuarioHelper(getApplicationContext());
 

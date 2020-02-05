@@ -1,5 +1,6 @@
 package com.nvjweb.litletourettev1;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,13 +33,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class primerapantalla extends AppCompatActivity {
     EditText ingresanombre, ingresaclave;
     Button btnlogin, btnregistrar;
-    String avatar=null,idusuario=null;
+    String avatar="avatar1",idusuario=null;
     private static final String TAG = "Login";
     private static final String PREFS_KEY = "PREFS";
     public final static String path = "https://littletourettebase.herokuapp.com/leerusuarios";
@@ -49,12 +52,11 @@ public class primerapantalla extends AppCompatActivity {
     //content
     UsuarioHelper dbUser;
     Usuario user;
-
+    private static final int RECOGNIZE_SPEECH_ACTIVITY = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.primerapantalla);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //content
         dbUser= new UsuarioHelper(getApplicationContext());
 
@@ -274,6 +276,39 @@ public class primerapantalla extends AppCompatActivity {
         editor.commit();
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case RECOGNIZE_SPEECH_ACTIVITY:
+                if (resultCode == RESULT_OK && null != data) {
+                    ArrayList<String> speech = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    String strSpeech2Text = speech.get(0);
+                    ingresanombre.setText(strSpeech2Text);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    public void onClickImgBtnHablar(View v) {
+        Intent intentActionRecognizeSpeech = new Intent(
+                RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intentActionRecognizeSpeech.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL, "es-ES");
+        try {
+            startActivityForResult(intentActionRecognizeSpeech,
+                    RECOGNIZE_SPEECH_ACTIVITY);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    "Tú dispositivo no soporta el reconocimiento por voz",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }
 
